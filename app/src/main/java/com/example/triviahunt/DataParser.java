@@ -84,4 +84,18 @@ public class DataParser {
 
         br.close();
     }
+
+    public TriviaCard chooseCard() {
+        int num = (int)Math.random()*triviaCards.size();
+
+        if(num < 0) {
+            num = 0;
+        }
+
+        if(num >= triviaCards.size()) {
+            num = triviaCards.size() - 1;
+        }
+
+        return triviaCards.get(num);
+    }
 }
