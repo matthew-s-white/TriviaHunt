@@ -10,6 +10,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -26,6 +29,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +45,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     Location currLocation;
     private FusedLocationProviderClient client;
     private static final int REQUEST_CODE = 101;
+    private static final double START_LATITUDE = 37.4220186;
+    private static final double START_LONGITUDE = -122.0839727;
+    private static final double PROXIMITY_RADIUS_IN_FEET = 20.0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,20 +112,44 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    public Bitmap resizeBitmap(String drawableName,int width, int height){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(),getResources().getIdentifier(drawableName, "drawable", getPackageName()));
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
+    }
+
     private void generateNearbyMarkers(GoogleMap googleMap){
-        double start_latitude = 37.4220186;
-        double start_longitude = -122.0839727;
         int num_of_marks;
         num_of_marks = (int)((Math.random() * 5.0) + 4.0);
         System.out.println("num_of_marks: "+ num_of_marks);
         for(int i = 0; i < num_of_marks; i++){
             double new_latitude, new_longitude;
-            new_latitude = ((((Math.random() * 2) - 1)) * (Math.random() / 800)) + start_latitude;
-            new_longitude = ((((Math.random() * 2) - 1)) * (Math.random() / 800)) + start_longitude;
+            new_latitude = ((((Math.random() * 2) - 1)) * (Math.random() / 800)) + START_LATITUDE;
+            new_longitude = ((((Math.random() * 2) - 1)) * (Math.random() / 800)) + START_LONGITUDE;
             System.out.println("new_lat: " + new_latitude + " new_long: " + new_longitude);
             LatLng newLatLng = new LatLng(new_latitude, new_longitude);
-            MarkerOptions newLoc = new MarkerOptions().position(newLatLng).title("TrivaQ" + i);
+            MarkerOptions newLoc = new MarkerOptions().position(newLatLng).title("TrivaQ" + i).icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap("trivia_hunt_marker", 120, 120)));
             googleMap.addMarker(newLoc);
         }
+
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                if (checkMarkerProximity(marker)){
+                    //start new activity
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+    }
+
+    private boolean checkMarkerProximity(Marker marker){
+        if (Math.abs(marker.getPosition().latitude - currLocation.getLatitude()) <= PROXIMITY_RADIUS_IN_FEET/364000.0
+        && Math.abs(marker.getPosition().latitude - currLocation.getLatitude()) <= PROXIMITY_RADIUS_IN_FEET/288200.0) {
+            return true;
+        }
+        return false;
     }
 }
