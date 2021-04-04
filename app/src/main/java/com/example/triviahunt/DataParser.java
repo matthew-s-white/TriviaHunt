@@ -5,15 +5,17 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class DataParser {
 
     public ArrayList<TriviaCard> triviaCards = new ArrayList<>();
 
-    public DataParser() throws IOException {
-        FileReader fr = new FileReader("TriviaData1");
-        BufferedReader br = new BufferedReader(fr);
+    public DataParser(MainActivity mainActivity) throws IOException {
+        InputStream is = mainActivity.getAssets().open("TriviaData.txt");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         String line = br.readLine();
         int counter = 0;
