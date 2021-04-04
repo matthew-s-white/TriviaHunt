@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
 
 public class TriviaCardActivity extends AppCompatActivity {
     public int counter = 10;
@@ -24,14 +22,14 @@ public class TriviaCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trivia_card);
+        setContentView(R.layout.activity_main);
 
         final TextView counttime=findViewById(R.id.timer);
 
-        new CountDownTimer(10000,1000) {
+        CountDownTimer cd = new CountDownTimer(10000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(!choiceSelected && counttime != null) {
+                if(!choiceSelected) {
                     counttime.setText(String.valueOf(counter));
                     counter--;
                 }
@@ -50,20 +48,19 @@ public class TriviaCardActivity extends AppCompatActivity {
 
             switch(view.getId()) {
                 case R.id.answer1:
-                    TextView tv = (TextView) findViewById(R.id.answer1);
-                    tv.setBackgroundColor(Color.parseColor("#228B22"));
+                    findViewById(R.id.answer1).setBackgroundColor(Color.parseColor("#228B22"));
                     break;
 
                 case R.id.answer2:
-                    findViewById(R.id.answer2).setBackgroundColor(findViewById(R.id.answer2).getContext().getResources().getColor(R.color.correct));
+                    findViewById(R.id.answer2).setBackgroundColor(Color.parseColor("#228B22"));
                     break;
 
                 case R.id.answer3:
-                    findViewById(R.id.answer3).setBackgroundColor(findViewById(R.id.answer3).getContext().getResources().getColor(R.color.correct));
+                    findViewById(R.id.answer3).setBackgroundColor(Color.parseColor("#228B22"));
                     break;
 
                 case R.id.answer4:
-                    findViewById(R.id.answer4).setBackgroundColor(findViewById(R.id.answer4).getContext().getResources().getColor(R.color.correct));
+                    findViewById(R.id.answer4).setBackgroundColor(Color.parseColor("#228B22"));
                     break;
             }
         }

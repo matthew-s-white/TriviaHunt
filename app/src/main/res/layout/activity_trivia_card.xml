@@ -47,12 +47,11 @@
 
             </TextView>
 
-            <TextView
+            <Button
                 android:id="@+id/answer1"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
-                android:background="@drawable/round_edges"
                 android:backgroundTint="@color/light_gray"
                 android:elevation="20dp"
                 android:gravity="center_horizontal"
@@ -62,14 +61,13 @@
                 android:textSize="18dp"
                 android:onClick="onClick">
 
-            </TextView>
+            </Button>
 
-            <TextView
+            <Button
                 android:id="@+id/answer2"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/round_edges"
                 android:backgroundTint="@color/light_gray"
                 android:elevation="20dp"
                 android:gravity="center_horizontal"
@@ -79,14 +77,13 @@
                 android:textSize="18dp"
                 android:onClick="onClick">
 
-            </TextView>
+            </Button>
 
-            <TextView
+            <Button
                 android:id="@+id/answer3"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/round_edges"
                 android:backgroundTint="@color/light_gray"
                 android:elevation="20dp"
                 android:gravity="center_horizontal"
@@ -96,14 +93,13 @@
                 android:textSize="18dp"
                 android:onClick="onClick">
 
-            </TextView>
+            </Button>
 
-            <TextView
+            <Button
                 android:id="@+id/answer4"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/round_edges"
                 android:backgroundTint="@color/light_gray"
                 android:elevation="20dp"
                 android:gravity="center_horizontal"
@@ -113,7 +109,7 @@
                 android:textSize="18dp"
                 android:onClick="onClick">
 
-            </TextView>
+            </Button>
 
 
         </LinearLayout>
