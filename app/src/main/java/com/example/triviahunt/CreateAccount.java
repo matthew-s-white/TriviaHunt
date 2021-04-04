@@ -1,5 +1,6 @@
 package com.example.triviahunt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -42,11 +43,14 @@ public class CreateAccount extends FragmentActivity {
                 newAccount.setName(name);
                 newAccount.setPassword(password);
 
+
                 try {
-                    newAccount.writeToFile("accounts.txt"); // Might need to change (include filepath)
+                    newAccount.writeToFile("myAccount.txt", CreateAccount.this); // Might need to change (include filepath)
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
+                finish();
             }
         });
 

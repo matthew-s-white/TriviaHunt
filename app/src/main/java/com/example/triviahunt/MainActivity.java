@@ -1,25 +1,17 @@
 package com.example.triviahunt;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,17 +19,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.OnTokenCanceledListener;
 import com.google.android.gms.tasks.Task;
 
-import static com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -48,17 +41,32 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_CODE = 101;
     private static final double START_LATITUDE = 37.4220186;
     private static final double START_LONGITUDE = -122.0839727;
-    private static final double PROXIMITY_RADIUS_IN_FEET = 20.0;
+    private static final double PROXIMITY_RADIUS_IN_FEET = 150.0;
+    SharedPreferences prefs = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.google_map);
 
+        prefs = getSharedPreferences("com.example.triviahunt", MODE_PRIVATE);
 
         client = LocationServices.getFusedLocationProviderClient(this);
         getCurrLocation();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+            Intent intent1 = new Intent(this, AccountActivity.class);
+            startActivity(intent1);
+            prefs.edit().putBoolean("firstrun", false).commit();
+        }
     }
 
     private void getCurrLocation() {
@@ -74,8 +82,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (location != null) {
                     currLocation = location;
-                    supportMapFragment = (SupportMapFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.google_map);
 
                     supportMapFragment.getMapAsync(MainActivity.this);
                 }
@@ -137,9 +143,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 if (checkMarkerProximity(marker)){
                     marker.setVisible(false);
-                    Intent intent1 = new Intent(this, TriviaCardActivity.class);
+                    Intent intent1 = new Intent(MainActivity.this, TriviaCardActivity.class);
                     startActivity(intent1);
-                    finish();
                     return true;
                 }
                 else {

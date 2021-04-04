@@ -85,7 +85,7 @@ public class Account {
         this.badges.add(badge);
     }
 
-    public void writeToFile(String filename) throws FileNotFoundException {
+    public void writeToFile(String filename, CreateAccount createAccount) throws FileNotFoundException {
         String outputLine1 = username + "~" + name + "~" + password + "~" + Integer.toString(coins);
         String outputLine2 = "";
         if (badges.size() != 0) {
@@ -93,7 +93,14 @@ public class Account {
                 outputLine2 += s + "~";
             }
         }
-        bou = new PrintWriter(new File(filename));
+
+        File myAccountDetails = new File(createAccount.getFilesDir(), "myAccount.txt");
+        try {
+            myAccountDetails.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        bou = new PrintWriter(myAccountDetails);
         bou.println(outputLine1);
         bou.println(outputLine2);
         // System.out.println(outputLine1);
