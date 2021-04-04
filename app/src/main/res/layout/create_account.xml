@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/CreateAccountPrompt"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="200dp"
             android:gravity="center"
@@ -45,7 +45,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:onClick="createAccount"
             android:padding="24dp"
             android:text="Create An Account"
             android:textColor="@android:color/white"
