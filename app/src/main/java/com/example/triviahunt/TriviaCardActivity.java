@@ -22,14 +22,14 @@ public class TriviaCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_trivia_card);
 
         final TextView counttime=findViewById(R.id.timer);
 
-        CountDownTimer cd = new CountDownTimer(10000,1000) {
+        new CountDownTimer(10000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(!choiceSelected) {
+                if(!choiceSelected && counttime != null) {
                     counttime.setText(String.valueOf(counter));
                     counter--;
                 }

@@ -43,6 +43,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private static final double START_LONGITUDE = -122.0839727;
     private static final double PROXIMITY_RADIUS_IN_FEET = 150.0;
     SharedPreferences prefs = null;
+    private boolean locFound = false;
 
 
     @Override
@@ -55,7 +56,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         prefs = getSharedPreferences("com.example.triviahunt", MODE_PRIVATE);
 
         client = LocationServices.getFusedLocationProviderClient(this);
-        getCurrLocation();
     }
 
     @Override
@@ -66,10 +66,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Intent intent1 = new Intent(this, AccountActivity.class);
             startActivity(intent1);
             prefs.edit().putBoolean("firstrun", false).commit();
+            getCurrLocation();
+        } else if (!locFound){
+            getCurrLocation();
         }
     }
 
     private void getCurrLocation() {
+        locFound = true;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE);
             return;
