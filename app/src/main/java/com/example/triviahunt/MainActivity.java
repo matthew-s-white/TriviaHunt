@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -135,7 +136,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (checkMarkerProximity(marker)){
-                    //start new activity
+                    marker.setVisible(false);
+                    Intent intent1 = new Intent(this, TriviaCardActivity.class);
+                    startActivity(intent1);
+                    finish();
                     return true;
                 }
                 else {
