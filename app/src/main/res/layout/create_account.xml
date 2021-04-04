@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    >
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/profile_gradient"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/CreateAccountPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="200dp"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="Since this is your first time using Trivia Hunt, please make an account."
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.498" />
+
+        <Button
+            android:id="@+id/CreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="93dp"
+            android:layout_marginTop="245dp"
+            android:backgroundTint="@color/seafoam_green"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:onClick="createAccount"
+            android:padding="24dp"
+            android:text="Create An Account"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
