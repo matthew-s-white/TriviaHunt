@@ -155,8 +155,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 if (checkMarkerProximity(marker)){
                     marker.setVisible(false);
                     Intent intent1 = new Intent(MainActivity.this, TriviaCardActivity.class);
-                    startActivity(intent1);
                     intent1.putExtra("trivia card", dataParser.chooseCard());
+                    startActivity(intent1);
                     return true;
                 }
                 else {

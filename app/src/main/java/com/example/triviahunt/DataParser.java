@@ -82,7 +82,7 @@ public class DataParser {
     }
 
     public TriviaCard chooseCard() {
-        int num = (int)Math.random()*triviaCards.size();
+        int num = (int)(Math.random()*triviaCards.size());
 
         if(num < 0) {
             num = 0;

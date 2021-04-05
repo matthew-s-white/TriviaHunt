@@ -26,7 +26,10 @@ public class TriviaCardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_trivia_card);
         thisCard = (TriviaCard)getIntent().getSerializableExtra("trivia card");
         ((TextView)findViewById(R.id.question)).setText(thisCard.getQuestion());
-
+        ((TextView)findViewById(R.id.answer1)).setText(thisCard.getAnswers().get(0));
+        ((TextView)findViewById(R.id.answer2)).setText(thisCard.getAnswers().get(1));
+        ((TextView)findViewById(R.id.answer3)).setText(thisCard.getAnswers().get(2));
+        ((TextView)findViewById(R.id.answer4)).setText(thisCard.getAnswers().get(3));
         final TextView counttime=findViewById(R.id.timer);
 
         new CountDownTimer(10000,1000) {
@@ -48,24 +51,23 @@ public class TriviaCardActivity extends AppCompatActivity {
 
         if(view.getId() == R.id.answer1 || view.getId() == R.id.answer2 || view.getId() == R.id.answer3 || view.getId() == R.id.answer4) {
             choiceSelected = true;
-
-            switch(view.getId()) {
-                case R.id.answer1:
-                    findViewById(R.id.answer1).setBackgroundColor(Color.parseColor("#228B22"));
-                    break;
-
-                case R.id.answer2:
-                    findViewById(R.id.answer2).setBackgroundColor(Color.parseColor("#228B22"));
-                    break;
-
-                case R.id.answer3:
-                    findViewById(R.id.answer3).setBackgroundColor(Color.parseColor("#228B22"));
-                    break;
-
-                case R.id.answer4:
-                    findViewById(R.id.answer4).setBackgroundColor(Color.parseColor("#228B22"));
-                    break;
-            }
+            checkSelection(view.getId());
         }
+        finish();
+    }
+
+    private void checkSelection(int id){
+        if (id == R.id.answer1 && thisCard.getCorrectIndex() == 0
+        || id == R.id.answer2 && thisCard.getCorrectIndex() == 1
+        || id == R.id.answer3 && thisCard.getCorrectIndex() == 2
+        || id == R.id.answer4 && thisCard.getCorrectIndex() == 3) {
+            findViewById(id).setBackgroundColor(Color.parseColor("#228B22"));
+        } else {
+            findViewById(id).setBackgroundColor(Color.parseColor("#CC1100"));
+        }
+        findViewById(R.id.answer1).setClickable(false);
+        findViewById(R.id.answer2).setClickable(false);
+        findViewById(R.id.answer3).setClickable(false);
+        findViewById(R.id.answer4).setClickable(false);
     }
 }
