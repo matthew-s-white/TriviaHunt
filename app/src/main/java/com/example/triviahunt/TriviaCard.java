@@ -6,25 +6,25 @@ import java.util.ArrayList;
 public class TriviaCard implements Serializable {
 
     private String question;
-    private String correctAnswer;
-    private ArrayList<String> otherAnswers;
+    int correctIndex;
+    private ArrayList<String> answers;
 
-    public TriviaCard(String question, String correctAnswer, ArrayList<String> otherAnswers) {
+    public TriviaCard(String question, int correctIndex, ArrayList<String> answers) {
         this.question = question;
-        this.correctAnswer = correctAnswer;
-        this.otherAnswers = otherAnswers;
+        this.correctIndex = correctIndex;
+        this.answers = answers;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public String getCorrectAnswer() {
-        return correctAnswer;
+    public int getCorrectIndex() {
+        return correctIndex;
     }
 
-    public ArrayList<String> getOtherAnswers() {
-        return otherAnswers;
+    public ArrayList<String> getAnswers() {
+        return answers;
     }
 
 }

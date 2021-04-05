@@ -22,7 +22,7 @@ public class DataParser {
 
         String question = "";
         ArrayList<String> answers = new ArrayList<String>();
-        String correct = "";
+        int correctIndex = -1;
 
         while (line != null) {
 
@@ -56,25 +56,21 @@ public class DataParser {
                 line = line.substring(11, lastQuotation);
 
                 if (line.equals("A")) {
-                    correct = answers.get(0);
-                    answers.remove(0);
+                    correctIndex = 0;
                 } else if (line.equals("B")) {
-                    correct = answers.get(1);
-                    answers.remove(1);
+                    correctIndex = 1;
                 } else if (line.equals("C")) {
-                    correct = answers.get(2);
-                    answers.remove(2);
+                    correctIndex = 2;
                 } else if (line.equals("D")) {
-                    correct = answers.get(3);
-                    answers.remove(3);
+                    correctIndex = 3;
                 }
 
-                TriviaCard card = new TriviaCard(question, correct, (ArrayList<String>) answers.clone());
+                TriviaCard card = new TriviaCard(question, correctIndex, (ArrayList<String>) answers.clone());
                 triviaCards.add(card);
 
 
                 question = "";
-                correct = "";
+                correctIndex = -1;
                 answers.clear();
                 counter = 0;
             }
