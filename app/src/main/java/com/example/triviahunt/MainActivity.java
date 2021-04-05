@@ -44,6 +44,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private static final double PROXIMITY_RADIUS_IN_FEET = 150.0;
     SharedPreferences prefs = null;
     private boolean locFound = false;
+    DataParser dataParser;
 
 
     @Override
@@ -56,6 +57,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         prefs = getSharedPreferences("com.example.triviahunt", MODE_PRIVATE);
 
         client = LocationServices.getFusedLocationProviderClient(this);
+
+        try {
+            dataParser = new DataParser(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -149,6 +156,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     marker.setVisible(false);
                     Intent intent1 = new Intent(MainActivity.this, TriviaCardActivity.class);
                     startActivity(intent1);
+                    intent1.putExtra("trivia card", dataParser.chooseCard());
                     return true;
                 }
                 else {

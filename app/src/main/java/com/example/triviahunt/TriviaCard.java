@@ -1,8 +1,9 @@
 package com.example.triviahunt;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TriviaCard {
+public class TriviaCard implements Serializable {
 
     private String question;
     private String correctAnswer;

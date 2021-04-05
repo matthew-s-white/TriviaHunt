@@ -18,11 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 public class TriviaCardActivity extends AppCompatActivity {
     public int counter = 10;
     public boolean choiceSelected = false;
+    private TriviaCard thisCard;
     @TargetApi(Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trivia_card);
+        thisCard = (TriviaCard)getIntent().getSerializableExtra("trivia card");
+        ((TextView)findViewById(R.id.question)).setText(thisCard.getQuestion());
 
         final TextView counttime=findViewById(R.id.timer);
 
